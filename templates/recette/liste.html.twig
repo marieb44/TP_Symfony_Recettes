@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <div class="nav">
+        <a href="{{ path('recette_accueil') }}">Accueil</a> >
+        <a href="{{ path('recette_liste') }}">Liste</a>
+    </div>
+    <hr>
+    <div class="txt-center">
+        <a href="{{ path('recette_liste_tri', {'param' : 'fav'}) }}"><button>Trier par favori</button></a>
+        <!-- <a href="{{ path('recette_liste_fav') }}"><button>Trier par favori</button></a> -->
+        <a href="{{ path('recette_liste_tri', {'param' : 'nom'}) }}"><button>Trier par nom</button></a>
+        <!-- <a href="{{ path('recette_liste_nom') }}"><button>Trier par nom</button></a>-->
+    </div>
+    <hr>
+{% endblock %}
+
+{% block main %}
+    <div class="grid-liste txt-center">
+    {% for recette in recettes %}
+        <div class="case">
+            <p>{{ recette.nom }}
+                {% if recette.estFavori == true %}
+                    ★  {# &#9733 #}
+                {% else %}
+                    ☆  {# &#9734 #}
+                {% endif %}
+            </p>
+            <a href="{{ path('recette_detail', {'id': recette.id}) }}">
+            <img class="photo" src="{{ asset ('img/'~recette.image) }}" alt="{{ recette.image }}">
+            </a>
+            <a href="{{ path('recette_changer_favori', {'id': recette.id}) }}">
+                <button class="btn-favori">
+                    {% if recette.estFavori %}
+                        Retirer des favoris
+                    {% else %}
+                        Ajouter aux favoris
+                    {% endif %}
+                </button>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

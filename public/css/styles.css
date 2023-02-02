@@ -1,0 +1,57 @@
+*{
+    font-family: "Century Gothic";
+}
+
+.txt-center{
+    text-align: center;
+}
+
+.nav{
+    padding: 1rem;
+}
+
+.grid-liste {
+    padding: 1rem;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns : repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.grid-page {
+    padding: 1rem;
+    display: grid;
+    grid-gap: 5vh;
+    grid-template-columns : repeat(1, 95vw);
+}
+
+.grid-recette {
+    padding: 1rem;
+    display: inline-grid;
+    grid-template-columns : repeat(2, 40vw);
+    margin: auto;
+}
+
+.case {
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+.photo {
+    width: 100%;
+    border-radius: 2rem;
+    height: 15vh;
+}
+
+.photo-detail {
+    width: 100%;
+    border-radius: 2rem;
+}
+
+.btn-favori {
+    margin: 2rem;
+}
+
+.ingredients{
+    text-align: left;
+}
