@@ -30,14 +30,11 @@ class RecetteController extends AbstractController
                 case 'fav':
                     //return $this->redirectToRoute('recette_liste_fav');
                     return $this->redirectToRoute('recette_liste_tri', [ 'param' => $cookieTri ]);
-                    break;
                 case 'nom':
                     //return $this->redirectToRoute('recette_liste_nom');
                     return $this->redirectToRoute('recette_liste_tri', [ 'param' => $cookieTri ]);
-                    break;
                 default:
                     return $this->redirectToRoute('recette_accueil');
-                    break;
             }
         } else {
             $recettes = $recetteRepository->findAll();
@@ -66,51 +63,54 @@ class RecetteController extends AbstractController
         $cookie = new Cookie('tri', $param, time() + (24 * 60 * 60));
         $response = new Response();
         $response->headers->setCookie($cookie);
+        $response->send();
 
-        return $response->setContent($this->renderView('recette/liste.html.twig',
-            compact('recettes')));
-        /*return $this->render('recette/liste.html.twig',
-            compact('recettes')
-        );*/
+        return $this->render('recette/liste.html.twig',
+                    compact('recettes')
+                );
+
+        /* return $response->setContent($this->renderView('recette/liste.html.twig',
+            compact('recettes')));*/
+
     }
 
-    #[Route('/recettes/tri/nom', name: 'recette_liste_nom')]
-    public function recettesTriNom(
-        RecetteRepository $recetteRepository
-    ): Response
-    {
-        $recettes = $recetteRepository->findBy([], ["nom" => "ASC"], null, 0);
-        //setcookie('tri','nom', time() + (24 * 60 * 60));
-        $cookie = new Cookie('tri', 'nom', time() + (24 * 60 * 60));
-        $response = new Response();
-        $response->headers->setCookie($cookie);
-
-        return $response->setContent($this->renderView('recette/liste.html.twig',
-            compact('recettes')));
-        /*return $this->render('recette/liste.html.twig',
-            compact('recettes')
-        );*/
-    }
-
-    #[Route('/recettes/tri/fav', name: 'recette_liste_fav')]
-    public function recettesTriFavoris(
-        RecetteRepository $recetteRepository
-    ): Response
-    {
-        $recettes = $recetteRepository->findBy([], ["estFavori" => "DESC"], null, 0);
-        //setcookie('tri','fav', time() + (24 * 60 * 60));
-
-        $cookie = new Cookie('tri', 'fav', time() + (24 * 60 * 60));
-        $response = new Response();
-        $response->headers->setCookie($cookie);
-
-        return $response->setContent($this->renderView('recette/liste.html.twig',
-            compact('recettes')));
-
-        /*return $this->render('recette/liste.html.twig',
-            compact('recettes')
-        );*/
-    }
+//    #[Route('/recettes/tri/nom', name: 'recette_liste_nom')]
+//    public function recettesTriNom(
+//        RecetteRepository $recetteRepository
+//    ): Response
+//    {
+//        $recettes = $recetteRepository->findBy([], ["nom" => "ASC"], null, 0);
+//        //setcookie('tri','nom', time() + (24 * 60 * 60));
+//        $cookie = new Cookie('tri', 'nom', time() + (24 * 60 * 60));
+//        $response = new Response();
+//        $response->headers->setCookie($cookie);
+//
+//        return $response->setContent($this->renderView('recette/liste.html.twig',
+//            compact('recettes')));
+//        /*return $this->render('recette/liste.html.twig',
+//            compact('recettes')
+//        );*/
+//    }
+//
+//    #[Route('/recettes/tri/fav', name: 'recette_liste_fav')]
+//    public function recettesTriFavoris(
+//        RecetteRepository $recetteRepository
+//    ): Response
+//    {
+//        $recettes = $recetteRepository->findBy([], ["estFavori" => "DESC"], null, 0);
+//        //setcookie('tri','fav', time() + (24 * 60 * 60));
+//
+//        $cookie = new Cookie('tri', 'fav', time() + (24 * 60 * 60));
+//        $response = new Response();
+//        $response->headers->setCookie($cookie);
+//
+//        return $response->setContent($this->renderView('recette/liste.html.twig',
+//            compact('recettes')));
+//
+//        /*return $this->render('recette/liste.html.twig',
+//            compact('recettes')
+//        );*/
+//    }
 
     #[Route('/recettes/detail/{id}', name: 'recette_detail')]
     public function recette(
